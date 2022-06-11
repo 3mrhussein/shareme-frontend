@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
+import React from 'react';
 import GoogleLoginButton from '../components/googleLoginButton';
 
 const Login = () => {

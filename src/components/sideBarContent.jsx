@@ -18,7 +18,7 @@ const SideBarContent = () => {
 
   return (
     <div
-      className="flex flex-col text-base justify-between bg-white h-screen shadow-2xl rounded-b-xl overflow-y-scroll hide-scrollbar "
+      className="flex flex-col text-sm md:text-base justify-between bg-white h-screen shadow-2xl rounded-b-xl overflow-y-scroll hide-scrollbar "
       style={{ minWidth: '250px' }}
     >
       <div className="flex flex-col">
@@ -28,7 +28,7 @@ const SideBarContent = () => {
         >
           <Logo />
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <NavLink
             to="/"
             className={({ isActive }) =>

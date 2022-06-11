@@ -31,7 +31,7 @@ const PinHovered = ({
 
   return (
     <div
-      className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2  pb-2 z-50"
+      className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2  pb-2 z-10"
       style={{ height: '100%' }}
     >
       <div className="flex justify-between items-center">
@@ -44,7 +44,7 @@ const PinHovered = ({
           save={save}
         />
       </div>
-      <div className="flex justify-between z-50 items-center gap-2 ">
+      <div className="flex justify-between z-10 items-center gap-2 ">
         <PinDestinationButton destination={destination} />
         {postedBy?._id === user?._id && <PinDeleteButton pinId={_id} />}
       </div>
