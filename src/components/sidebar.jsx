@@ -48,7 +48,7 @@ const Sidebar = () => {
         <div
           className={`${
             showMenu ? 'bg-white translate-y-16 ease-in-out duration-500 ' : ''
-          }  fixed z-10 -top-16  rounded-sm p-2 w-full flex flex-row  justify-between  items-center shadow-md `}
+          }  fixed z-5 -top-16  rounded-sm p-2 w-full flex flex-row  justify-between  items-center shadow-md `}
         >
           <HiMenu
             fontSize={40}
