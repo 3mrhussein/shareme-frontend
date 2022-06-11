@@ -16,7 +16,7 @@ function Home() {
     getUserById(userInfo?._id).then((data) => {
       setUser(data[0]);
     });
-    if (!!!user) navigate('/login', { replace: true });
+    if (!!!userInfo) navigate('/login', { replace: true });
   }, [getUserById]);
   return (
     <div className="flex bg-gray-50 md:flex-row flex-col flex-1  h-screen transition-height duration-75 ease-in-out ">
