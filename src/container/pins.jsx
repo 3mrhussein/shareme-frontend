@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PinDetail from '../components/pinDetail';
-import Home from './home';
 import Feed from '../components/feed';
 import CreatePin from '../components/createPin';
 import Search from '../components/search';

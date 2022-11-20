@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { MdDownloadForOffline } from 'react-icons/md';
-import { v4 as uuidv4 } from 'uuid';
-import MasonryLayout from 'react-masonry-css';
+
 import Spinner from '../components/spinner';
 import { UserContext } from '../context/userContext';
 import { useParams } from 'react-router-dom';
@@ -113,7 +111,7 @@ const PinDetail = () => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               onKeyDown={(e) => {
-                if (e.keyCode == 13 && !e.shiftKey) {
+                if (e.keyCode === 13 && !e.shiftKey) {
                   e.preventDefault();
                   addNewComment();
                 }

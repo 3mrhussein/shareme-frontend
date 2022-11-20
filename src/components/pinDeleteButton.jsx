@@ -1,6 +1,5 @@
 import React from 'react';
 import { AiTwotoneDelete } from 'react-icons/ai';
-import { UserContextProvider } from '../context/userContext';
 import { deletePinById } from '../Utils/APIs/pinsAPI';
 
 const PinDeleteButton = ({ pinId }) => {

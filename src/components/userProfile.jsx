@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { GoogleLogout } from 'react-google-login';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 import { getSavedPins, getUserCreatedPins } from '../Utils/APIs/pinsAPI';
 import { getUserById } from '../Utils/APIs/userAPI';
@@ -52,7 +51,7 @@ function UserProfile() {
                   {userProfile?.userName}{' '}
                 </h1>
               </div>
-              {userId == user?._id && (
+              {userId === user?._id && (
                 <div className=" hidden md:block absolute top-0 right-0 m-3">
                   <LogoutButton />
                 </div>

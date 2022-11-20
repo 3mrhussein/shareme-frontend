@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
-import { IoIosArrowForward } from 'react-icons/io';
+
 import Logo from './logo';
-import { UserContext } from '../context/userContext';
 import { SideBarContext } from '../context/sideBarContext';
-import UserCard from './userCard';
 import { categories } from '../Utils/APIs/data';
-import LoginButton from './loginButton';
 const SideBarContent = () => {
   const { setDisplaySidebar } = useContext(SideBarContext);
-  const { user } = useContext(UserContext);
   const isNotActiveStyle =
     'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-100 ease-in-out capitalize';
   const isActiveStyle =
@@ -18,7 +14,7 @@ const SideBarContent = () => {
 
   return (
     <div
-      className="flex flex-col text-sm md:text-base justify-between bg-white h-screen shadow-2xl rounded-b-xl overflow-y-scroll hide-scrollbar "
+      className="flex flex-col text-sm md:text-base pb-5 justify-between bg-white h-screen shadow-2xl  overflow-y-scroll hide-scrollbar "
       style={{ minWidth: '250px' }}
     >
       <div className="flex flex-col">
@@ -59,7 +55,7 @@ const SideBarContent = () => {
           ))}
         </div>
       </div>
-      <div className="p-3">
+      {/* <div className="p-3">
         {!!user ? (
           <UserCard
             imageWidth={10}
@@ -74,7 +70,7 @@ const SideBarContent = () => {
             <LoginButton />
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

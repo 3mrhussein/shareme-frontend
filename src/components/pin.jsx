@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { urlFor } from '../Utils/APIs/client';
-import { fetchUserFromLocalStorage } from '../Utils/APIs/userAPI';
 import PinHovered from './pinHovered';
 const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
@@ -9,7 +8,7 @@ const Pin = ({ pin }) => {
     if (window.innerWidth < 768) {
       setPostHovered(true);
     }
-  }, [window.innerWidth]);
+  }, []);
   const navigate = useNavigate();
   const [savingPost, setSavingPost] = useState(false);
   return (
@@ -40,6 +39,7 @@ const Pin = ({ pin }) => {
         <img
           src={pin?.postedBy?.image}
           className=" w-8 h-8 rounded-full object-cover"
+          alt=""
         />
         <p className=" font-semibold capitalize">{pin?.postedBy?.userName}</p>
       </Link>

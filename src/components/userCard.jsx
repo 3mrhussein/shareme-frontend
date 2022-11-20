@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../context/userContext';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 const UserCard = ({
   showImg,

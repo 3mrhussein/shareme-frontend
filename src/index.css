@@ -7,7 +7,17 @@
     font-family: 'Lato', sans-serif;
   }
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

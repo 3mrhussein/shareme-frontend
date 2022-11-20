@@ -13,7 +13,7 @@ const PinHovered = ({
   const user = fetchUserFromLocalStorage();
   //if array of save have the same user that login so it is already saved
   const alreadySaved = save?.filter(
-    (item) => item.postedBy._id === user?._id
+    (item) => item.postedBy?._id === user?._id
   )?.length;
   const savePin = (id) => {
     if (user) {
