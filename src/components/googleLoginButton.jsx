@@ -1,48 +1,43 @@
-import React from 'react';
-import GoogleLogin from 'react-google-login';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useEffect, useContext } from 'react';
 import { createNewUserDoc } from '../Utils/APIs/userAPI';
 import { useNavigate } from 'react-router-dom';
-
-function GoogleLoginButton() {
+import jwt_decode from 'jwt-decode';
+import { UserContext } from '../context/userContext';
+const GoogleLoginButton = () => {
   const navigate = useNavigate();
-
-  const googleResponse = (response) => {
-    const { name, googleId, imageUrl } = response.profileObj;
+  const { setUser } = useContext(UserContext);
+  const handleCallbackResponse = (response) => {
+    const { sub, name, picture } = jwt_decode(response.credential);
     const userDoc = {
-      _id: googleId,
+      _id: sub,
       _type: 'user',
       userName: name,
-      image: imageUrl,
+      image: picture,
     };
-    localStorage.setItem('user', JSON.stringify(userDoc));
+
     createNewUserDoc(userDoc, () => {
+      localStorage.setItem('user', JSON.stringify(userDoc));
+      setUser(userDoc);
       navigate('/', { replace: true });
     });
   };
-  const googleLoginFailed = () => {
-    console.log('Failed TO Login');
-  };
-  return (
-    <div>
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-        render={(renderProps) => (
-          <button
-            type="button"
-            className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-            onClick={renderProps.onClick}
-            disabled={renderProps.disabled}
-          >
-            <FcGoogle className="mr-4" /> Sign in with Google
-          </button>
-        )}
-        onSuccess={googleResponse}
-        onFailure={googleLoginFailed}
-        cookiePolicy="single_host_origin"
-      />
-    </div>
-  );
-}
+  useEffect(() => {
+    /* global google */
+    // eslint-disable-next-line no-unused-expressions
+    google.accounts.id.initialize({
+      client_id: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
+      callback: handleCallbackResponse,
+      auto_select: false,
+    });
+
+    // eslint-disable-next-line no-undef
+    google.accounts.id.renderButton(document.getElementById('login-div'), {
+      theme: 'outline',
+      size: 'large',
+    });
+  });
+
+  return <div id="login-div" />;
+};
 
 export default GoogleLoginButton;
