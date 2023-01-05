@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import DesktopSidebar from './desktopSidebar';
-import MobileSidebar from './mobileSidebar';
+import DesktopSidebar from '../components/desktopSidebar';
+import MobileSidebar from '../components/mobileSidebar';
 import { HiMenu } from 'react-icons/hi';
 import { SideBarContext } from '../context/sideBarContext';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { UserContext } from '../context/userContext';
-import UserCard from './userCard';
-import LogoutButton from './logoutButton';
+import UserCard from '../components/userCard';
+import LogoutButton from '../components/logoutButton';
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -36,13 +36,7 @@ const Sidebar = () => {
             (pathname.split('/')[2] === user?._id ? (
               <LogoutButton />
             ) : (
-              <UserCard
-                imageWidth={10}
-                imageHeight={10}
-                showImg
-                redirect
-                user={user}
-              />
+              <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
             ))}
         </div>
         {displaySidebar && <MobileSidebar display={setDisplaySidebar} />}

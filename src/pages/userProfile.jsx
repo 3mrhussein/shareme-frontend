@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 import { getSavedPins, getUserCreatedPins } from '../Utils/APIs/pinsAPI';
 import { getUserById } from '../Utils/APIs/userAPI';
-import LogoutButton from './logoutButton';
-import MasonryLayout from './masonryLayout';
-import Spinner from './spinner';
+import LogoutButton from '../components/logoutButton';
+import MasonryLayout from '../components/masonryLayout';
+import Spinner from '../components/spinner';
 
 function UserProfile() {
   const { user } = useContext(UserContext);
@@ -28,8 +28,7 @@ function UserProfile() {
       getSavedPins(userId).then((data) => setPins(data));
     }
   }, [activeBtn, userId]);
-  const randomImage =
-    'https://source.unsplash.com/1600x900/?nature,photography,technology';
+  const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology';
   return (
     <div className=" h-screen w-full">
       <Spinner isLoading={!userProfile} message={'Loading Profile ...'}>
@@ -41,15 +40,15 @@ function UserProfile() {
                   src={randomImage}
                   className="w-full h-370 2xl:510 shadow-lg object-cover"
                   alt="banner-pic"
+                  loading="lazy"
                 />
                 <img
                   src={userProfile?.image}
                   className=" w-24 object-cover  -mt-12 rounded-full p-1 bg-red-500"
                   alt="user-pic"
+                  loading="lazy"
                 />
-                <h1 className=" font-bold text-3xl text-center mt-3">
-                  {userProfile?.userName}{' '}
-                </h1>
+                <h1 className=" font-bold text-3xl text-center mt-3">{userProfile?.userName} </h1>
               </div>
               {userId === user?._id && (
                 <div className=" hidden md:block absolute top-0 right-0 m-3">
@@ -61,22 +60,14 @@ function UserProfile() {
               <button
                 type="button"
                 onClick={() => setActiveBtn('created')}
-                className={
-                  activeBtn === 'created'
-                    ? ActiveButtonStyles
-                    : inActiveButtonStyles
-                }
+                className={activeBtn === 'created' ? ActiveButtonStyles : inActiveButtonStyles}
               >
                 Created
               </button>
               <button
                 type="button"
                 onClick={() => setActiveBtn('saved')}
-                className={
-                  activeBtn === 'saved'
-                    ? ActiveButtonStyles
-                    : inActiveButtonStyles
-                }
+                className={activeBtn === 'saved' ? ActiveButtonStyles : inActiveButtonStyles}
               >
                 Saved
               </button>

@@ -1,0 +1,9 @@
+.pin-img:hover > .pin-dest-lnk,
+.pin-img:hover > .pin-img-download {
+  display: flex;
+}
+
+.pin-img:hover > .pin-save-btn,
+.pin-img:hover > .pin-delete-btn {
+  display: block;
+}

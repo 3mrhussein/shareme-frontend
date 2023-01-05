@@ -10,14 +10,8 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
 
   const uploadImage = (e) => {
     const { type } = e.target.files[0];
-    if (
-      type ===
-      ('image/jpeg' ||
-        'image/png' ||
-        'image/svg' ||
-        'image/gif' ||
-        'image/tiff')
-    ) {
+    const pattern = new RegExp('image/*');
+    if (type === pattern) {
       setWrongeImageType(false);
       setLoading(true);
       uploadPinImage(e.target.files[0])
@@ -36,9 +30,7 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
     <div className=" bg-secondaryColor p-3 flex flex-0.7 h-full w-full">
       <div className="flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-370">
         <Spinner isLoading={loading}></Spinner>
-        {wrongeImageType && (
-          <p className="text-red-500 text-md p-5">*Wronge Image Type</p>
-        )}
+        {wrongeImageType && <p className="text-red-500 text-md p-5">Invaild image type</p>}
         {!imageAsset ? (
           <label>
             <div className="flex flex-col items-center justify-center ">
@@ -52,12 +44,7 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
                 Use high-quality JPG, SVG, PNG, GIF less than 20 MB
               </p>
             </div>
-            <input
-              type="file"
-              name="upload-img"
-              onChange={uploadImage}
-              className="w-0 h-0"
-            ></input>
+            <input type="file" name="upload-img" onChange={uploadImage} className="w-0 h-0"></input>
           </label>
         ) : (
           <div className="relative h-full">

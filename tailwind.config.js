@@ -1,6 +1,22 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
+    // screens: {
+    //   sm: '640px',
+    //   // => @media (min-width: 640px) { ... }
+
+    //   md: '768px',
+    //   // => @media (min-width: 768px) { ... }
+
+    //   lg: '1024px',
+    //   // => @media (min-width: 1024px) { ... }
+
+    //   xl: '1280px',
+    //   // => @media (min-width: 1280px) { ... }
+
+    //   '2xl': '1536px',
+    //   // => @media (min-width: 1536px) { ... }
+    // },
     extend: {
       margin: {
         320: '320px',
@@ -31,6 +47,12 @@ module.exports = {
       },
       maxHeight: {
         370: '370px',
+      },
+      minHeight: {
+        150: '150px',
+        210: '210px',
+        350: '350px',
+        620: '620px',
       },
       minWidth: {
         210: '210px',
@@ -73,8 +95,7 @@ module.exports = {
       },
       animation: {
         'slide-in': 'slide-in 0.5s ease-out',
-        'slide-fwd':
-          ' slide-fwd 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
+        'slide-fwd': ' slide-fwd 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
       },
       transitionProperty: {
         height: 'height',
