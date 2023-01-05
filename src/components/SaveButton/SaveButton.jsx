@@ -14,8 +14,12 @@ const SaveButton = ({ pin, user, classes }) => {
       return;
     }
     if (!isPinSaved) {
-      setLoading(true);
-      await savePinByCurrentUser(pin.id, user?._id).then(() => setIsPinSaved(true));
+      try {
+        setLoading(true);
+        await savePinByCurrentUser(pin.id, user?._id);
+        setIsPinSaved(true);
+        setLoading(false);
+      } catch (e) {}
       setLoading(false);
     }
   };
