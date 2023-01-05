@@ -9,7 +9,7 @@ import { SearchContextProvider } from '../context/searchContext';
 const Pins = () => {
   return (
     <SearchContextProvider>
-      <div className=" px-2 flex flex-col md:px-5 w-full">
+      <div className=" px-2 flex flex-col md:px-5">
         <Navbar />
 
         <Routes>

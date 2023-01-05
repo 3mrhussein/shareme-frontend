@@ -16,7 +16,7 @@ const Home = () => {
   return (
     user &&
     userIsLoaded && (
-      <div className="flex bg-gray-50 md:flex-row flex-col flex-1 w-screen  h-screen transition-height duration-75 ease-in-out ">
+      <div className="flex bg-gray-50 md:flex-row flex-col transition-height duration-75 ease-in-out ">
         <SideBarContextProvider>
           <Sidebar />
         </SideBarContextProvider>
