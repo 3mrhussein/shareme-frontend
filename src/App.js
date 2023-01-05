@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './container/login';
+import Login from './pages/login';
 import Home from './container/home';
 import { UserContext } from './context/userContext';
 const App = () => {
@@ -10,11 +10,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          exact
-          path="/login"
-          element={<Login wait={userIsLoading} user={user} />}
-        />
+        <Route exact path="/login" element={<Login wait={userIsLoading} user={user} />} />
         <Route path="/*" element={<Home />} />
       </Routes>
     </>

@@ -3,15 +3,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import Spinner from '../components/spinner';
 import { UserContext } from '../context/userContext';
 import { useParams } from 'react-router-dom';
-import {
-  fetchPinDetails,
-  fetchPinsWithSameCategory,
-  postPinComment,
-} from '../Utils/APIs/pinsAPI';
+import { fetchPinDetails, fetchPinsWithSameCategory, postPinComment } from '../Utils/APIs/pinsAPI';
 import { urlFor } from '../Utils/APIs/client';
-import PinDownloadIcon from './pinDownloadIcon';
-import UserCard from './userCard';
-import MoreRelatedPins from './moreRelatedPins';
+import PinDownloadIcon from '../components/pinDownloadIcon';
+import UserCard from '../components/userCard';
+import MoreRelatedPins from '../components/moreRelatedPins';
 
 const PinDetail = () => {
   const { user } = useContext(UserContext);
@@ -34,8 +30,7 @@ const PinDetail = () => {
   useEffect(() => {
     fetchPinDetails(pinId).then((data) => {
       setPinDetail(data[0]);
-      if (data[0])
-        fetchPinsWithSameCategory(data[0]).then((res) => setPins(res));
+      if (data[0]) fetchPinsWithSameCategory(data[0]).then((res) => setPins(res));
     });
   }, [pinId]);
   return (
@@ -67,9 +62,7 @@ const PinDetail = () => {
             </a>
           </div>
           <div>
-            <h1 className="text-4xl font-bold break-words mt-1">
-              {pinDetail?.title}
-            </h1>
+            <h1 className="text-4xl font-bold break-words mt-1">{pinDetail?.title}</h1>
             <p className="mt-2 text-base font-thin">{pinDetail?.about}</p>
           </div>
           <div className="mt-5 w-fit">
@@ -78,10 +71,7 @@ const PinDetail = () => {
           <h2 className="mt-5  text-lg font-semibold">Comments</h2>
           <div className="max-h-370  overflow-y-auto">
             {pinDetail?.comments?.map((comment, i) => (
-              <div
-                className="flex gap-2 mt-5 items-center bg-white rounded-lg"
-                key={i}
-              >
+              <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={i}>
                 <img
                   src={comment?.postedBy?.image}
                   alt={'user-profile'}
@@ -97,13 +87,7 @@ const PinDetail = () => {
             ))}
           </div>
           <div className="flex flex-wrap items-start my-6 gap-3">
-            <UserCard
-              showImg
-              redirect
-              user={user}
-              imageWidth={9}
-              imageHeight={9}
-            />
+            <UserCard showImg redirect user={user} imageWidth={9} imageHeight={9} />
             <textarea
               className="flex-1 resize-none overflow-hidden break-words border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
               type="text"

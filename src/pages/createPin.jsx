@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import { postPin } from '../Utils/APIs/pinsAPI';
-import PinForm from './pinForm';
-import ImagePickerPreview from './imagePickerPreview';
+import PinForm from '../components/pinForm';
+import ImagePickerPreview from '../components/imagePickerPreview';
 const CreatePin = () => {
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
@@ -51,10 +51,7 @@ const CreatePin = () => {
         </p>
       )}
       <div className="flex flex-col lg:flex-row justify-center items-center bg-white lg:p-5 p-3 h-full w-full">
-        <ImagePickerPreview
-          imageAsset={imageAsset}
-          setImageAsset={setImageAsset}
-        />
+        <ImagePickerPreview imageAsset={imageAsset} setImageAsset={setImageAsset} />
         <PinForm
           title={title}
           setTitle={setTitle}

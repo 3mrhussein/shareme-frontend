@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../context/searchContext';
 import { getAllPins, searchPins } from '../Utils/APIs/pinsAPI';
-import MasonryLayout from './masonryLayout';
-import Spinner from './spinner';
+import MasonryLayout from '../components/masonryLayout';
+import Spinner from '../components/spinner';
 
 const Search = () => {
   const { searchTerm } = useContext(SearchContext);
