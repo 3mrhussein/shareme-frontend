@@ -3,16 +3,16 @@ import { MdDelete } from 'react-icons/md';
 import Spinner from './spinner';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useState } from 'react';
-import { uploadPinImage } from '../Utils/APIs/pinsAPI';
+import { uploadPinImage } from '../APIs/pinsAPI';
 const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
   const [loading, setLoading] = useState(false);
-  const [wrongeImageType, setWrongeImageType] = useState(false);
+  const [wrongImageType, setWrongImageType] = useState(false);
 
   const uploadImage = (e) => {
     const { type } = e.target.files[0];
     const pattern = new RegExp('image/*');
-    if (type === pattern) {
-      setWrongeImageType(false);
+    if (pattern.test(type)) {
+      setWrongImageType(false);
       setLoading(true);
       uploadPinImage(e.target.files[0])
         .then((document) => {
@@ -23,14 +23,14 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
           console.log('image upload Error', error);
         });
     } else {
-      setWrongeImageType(true);
+      setWrongImageType(true);
     }
   };
   return (
     <div className=" bg-secondaryColor p-3 flex flex-0.7 h-full w-full">
       <div className="flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-370">
         <Spinner isLoading={loading}></Spinner>
-        {wrongeImageType && <p className="text-red-500 text-md p-5">Invaild image type</p>}
+        {wrongImageType && <p className="text-red-500 text-md p-5">Invaild image type</p>}
         {!imageAsset ? (
           <label>
             <div className="flex flex-col items-center justify-center ">

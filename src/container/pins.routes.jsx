@@ -3,25 +3,26 @@ import { Route, Routes } from 'react-router-dom';
 import PinDetail from '../pages/pinDetail';
 import Feed from '../pages/feed';
 import CreatePin from '../pages/createPin';
-import Search from '../pages/search';
 import Navbar from '../components/navbar';
 import { SearchContextProvider } from '../context/searchContext';
-const Pins = () => {
+import { PinContextProvider } from '../context/pinContext';
+import Category from '../pages/category';
+const PinsRoutes = () => {
   return (
     <SearchContextProvider>
-      <div className=" px-2 flex flex-col md:px-5">
+      <div className=" min-h-screen px-2 flex flex-col md:px-5">
         <Navbar />
 
         <Routes>
           <Route path="/" element={<Feed />} />
-          <Route path="/category/:categoryId" element={<Feed />} />
-          <Route path="/pin-detail/:pinId" element={<PinDetail />} />
+          <Route path="/category/:categoryId" element={<Category />} />
+          <Route path="/pin/:pinId" element={<PinDetail />} />
           <Route path="/create-pin" element={<CreatePin />} />
-          <Route path="/search" element={<Search />} />
+          {/* <Route path="/search" element={<Search />} /> */}
         </Routes>
       </div>
     </SearchContextProvider>
   );
 };
 
-export default Pins;
+export default PinsRoutes;

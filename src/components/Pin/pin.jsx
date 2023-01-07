@@ -1,44 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useContext } from 'react';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
-import { MdDownloadForOffline } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { urlFor } from '../../Utils/APIs/client';
-import { deletePinById } from '../../Utils/APIs/pinsAPI';
-import { fetchUserFromLocalStorage } from '../../Utils/APIs/userAPI';
+import { urlFor } from '../../APIs/client';
+import { deletePinById } from '../../APIs/pinsAPI';
+import { PinContext } from '../../context/pinContext';
+import { UserContext } from '../../context/userContext';
+import PinDownloadIcon from '../pinDownloadIcon';
 import SaveButton from '../SaveButton/SaveButton';
 import './pin.css';
 
 const hoveredItemClasses =
-  'absolute md:hidden bg-white opacity-60 hover:opacity-100 outline-none p-2 font-bold gap-2 hover:shadow-sm';
+  'absolute md:hidden bg-white opacity-75 hover:opacity-100 outline-none p-2 font-bold gap-2 hover:shadow-sm';
 
 const Pin = ({ pin }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    fetchUserFromLocalStorage().then((user) => {
-      setUser(user);
-    });
-  }, []);
+  const { user } = useContext(UserContext);
+  const { removePinFromState } = useContext(PinContext);
   const navigate = useNavigate();
 
   return (
     <div className="m-2">
       <div
-        onClick={() => navigate(`/pin-detail/${pin?._id}`, { replace: true })}
-        className="pin-img relative cursor-zoom-in w-auto shadow-sm shadow-slate-600 rounded-lg overflow-hidden "
+        onClick={() => navigate(`/pin/${pin?._id}`, { replace: true })}
+        className="pin-img relative cursor-zoom-in shadow-sm shadow-slate-600 rounded-lg overflow-hidden "
       >
-        <a
+        <PinDownloadIcon
           className={`${hoveredItemClasses} pin-img-download flex-center left-2 top-2 w-9 h-9 rounded-full text-2xl text-black`}
-          href={pin?.image?.asset?.url + '?dl='}
-          download
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <MdDownloadForOffline />
-        </a>
-
+          url={pin?.image?.asset?.url}
+        />
         <SaveButton classes={hoveredItemClasses} user={user} pin={pin} />
 
         <a
@@ -58,7 +48,7 @@ const Pin = ({ pin }) => {
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              deletePinById(pin._id);
+              deletePinById(pin._id).then(() => removePinFromState(pin._id));
             }}
             className={`${hoveredItemClasses} pin-delete-btn bottom-2 right-2  text-black text-base rounded-3xl`}
           >

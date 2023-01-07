@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { createNewUserDoc } from '../Utils/APIs/userAPI';
+import { createNewUserDoc } from '../APIs/userAPI';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { UserContext } from '../context/userContext';

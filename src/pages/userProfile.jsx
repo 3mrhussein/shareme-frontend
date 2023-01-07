@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
-import { getSavedPins, getUserCreatedPins } from '../Utils/APIs/pinsAPI';
-import { getUserById } from '../Utils/APIs/userAPI';
+import { getSavedPins, getUserCreatedPins } from '../APIs/pinsAPI';
+import { getUserById } from '../APIs/userAPI';
 import LogoutButton from '../components/logoutButton';
-import MasonryLayout from '../components/masonryLayout';
+import MasonryLayout from '../container/masonryLayout';
 import Spinner from '../components/spinner';
 
 function UserProfile() {
@@ -28,56 +28,52 @@ function UserProfile() {
       getSavedPins(userId).then((data) => setPins(data));
     }
   }, [activeBtn, userId]);
-  const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology';
+  const randomImage = 'https://source.unsplash.com/1600x900/?photography,technology';
   return (
-    <div className=" h-screen w-full">
+    <div className="">
       <Spinner isLoading={!userProfile} message={'Loading Profile ...'}>
-        <div className="relative pb-2 h-full justify-center items-center">
-          <div className="flex flex-col pb-5 ">
-            <div className="relative flex flex-col mb-7">
-              <div className="flex flex-col justify-center items-center">
-                <img
-                  src={randomImage}
-                  className="w-full h-370 2xl:510 shadow-lg object-cover"
-                  alt="banner-pic"
-                  loading="lazy"
-                />
-                <img
-                  src={userProfile?.image}
-                  className=" w-24 object-cover  -mt-12 rounded-full p-1 bg-red-500"
-                  alt="user-pic"
-                  loading="lazy"
-                />
-                <h1 className=" font-bold text-3xl text-center mt-3">{userProfile?.userName} </h1>
+        <div className="pb-5 flex-col h-full">
+          <div className="flex flex-col mb-7">
+            <div className="flex flex-col justify-center items-center">
+              <img
+                src={randomImage}
+                className="w-full h-370 2xl:510 shadow-lg object-cover"
+                alt="banner-pic"
+              />
+              <img
+                src={userProfile?.image}
+                className=" w-24 object-cover  -mt-12 rounded-full p-1 bg-red-500"
+                alt="user-pic"
+              />
+              <h1 className=" font-bold text-3xl text-center mt-3">{userProfile?.userName} </h1>
+            </div>
+            {userId === user?._id && (
+              <div className=" hidden md:block absolute top-0 right-0 m-3">
+                <LogoutButton />
               </div>
-              {userId === user?._id && (
-                <div className=" hidden md:block absolute top-0 right-0 m-3">
-                  <LogoutButton />
-                </div>
-              )}
-            </div>
-            <div className="flex gap-2 justify-center items-center mb-7">
-              <button
-                type="button"
-                onClick={() => setActiveBtn('created')}
-                className={activeBtn === 'created' ? ActiveButtonStyles : inActiveButtonStyles}
-              >
-                Created
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveBtn('saved')}
-                className={activeBtn === 'saved' ? ActiveButtonStyles : inActiveButtonStyles}
-              >
-                Saved
-              </button>
-            </div>
-            {pins?.length ? (
-              <MasonryLayout pins={pins} />
-            ) : (
-              <div className=" text-center font-bold">No Pins Found</div>
             )}
           </div>
+          <div className="flex gap-2 justify-center items-center mb-7">
+            <button
+              type="button"
+              onClick={() => setActiveBtn('created')}
+              className={activeBtn === 'created' ? ActiveButtonStyles : inActiveButtonStyles}
+            >
+              Created
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveBtn('saved')}
+              className={activeBtn === 'saved' ? ActiveButtonStyles : inActiveButtonStyles}
+            >
+              Saved
+            </button>
+          </div>
+          {pins?.length ? (
+            <MasonryLayout pins={pins} />
+          ) : (
+            <div className=" min-h-400 flex-center text-center font-bold">No Pins Found</div>
+          )}
         </div>
       </Spinner>
     </div>

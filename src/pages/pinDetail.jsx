@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Spinner from '../components/spinner';
 import { UserContext } from '../context/userContext';
 import { useParams } from 'react-router-dom';
-import { fetchPinDetails, fetchPinsWithSameCategory, postPinComment } from '../Utils/APIs/pinsAPI';
-import { urlFor } from '../Utils/APIs/client';
+import { fetchPinDetails, fetchPinsWithSameCategory, postPinComment } from '../APIs/pinsAPI';
+import { urlFor } from '../APIs/client';
 import PinDownloadIcon from '../components/pinDownloadIcon';
 import UserCard from '../components/userCard';
 import MoreRelatedPins from '../components/moreRelatedPins';
@@ -49,7 +49,10 @@ const PinDetail = () => {
         </div>
         <div className="flex flex-1 flex-col lg:pl-6">
           <div className="flex items-center justify-between p-5 flex-1 w-full xl:min-w-620">
-            <PinDownloadIcon url={pinDetail?.image?.asset?.url} />
+            <PinDownloadIcon
+              url={pinDetail?.image?.asset?.url}
+              className={`bg-white w-9 h-9 rounded-full flex items-center justify-center text-2xl outline-none`}
+            />
             <a
               className=" whitespace-nowrap   overflow-hidden text-gray-700   text-sm md:text-base"
               style={{ maxWidth: '40vw' }}

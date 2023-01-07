@@ -4,7 +4,7 @@ import { RiHomeFill } from 'react-icons/ri';
 
 import Logo from './logo';
 import { SideBarContext } from '../context/sideBarContext';
-import { categories } from '../Utils/APIs/data';
+import { categories } from '../APIs/data';
 const SideBarContent = () => {
   const { setDisplaySidebar } = useContext(SideBarContext);
   const isNotActiveStyle =
@@ -27,9 +27,7 @@ const SideBarContent = () => {
         <div className="flex flex-col gap-2 md:gap-3">
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              isActive ? isActiveStyle : isNotActiveStyle
-            }
+            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
             onClick={() => setDisplaySidebar(false)}
           >
             <RiHomeFill />
@@ -39,9 +37,7 @@ const SideBarContent = () => {
           {categories.slice(0, categories.length - 1).map((category) => (
             <NavLink
               to={`/category/${category.name}`}
-              className={({ isActive }) =>
-                isActive ? isActiveStyle : isNotActiveStyle
-              }
+              className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
               onClick={() => setDisplaySidebar(false)}
               key={category.name}
             >

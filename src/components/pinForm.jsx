@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../context/userContext';
-import { categories } from '../Utils/APIs/data';
+import { categories } from '../APIs/data';
 import UserCard from './userCard';
 
 const PinForm = ({
@@ -24,13 +24,7 @@ const PinForm = ({
         className="outline-none text-base   border-b-2 border-gray-200 py-2"
       />
       <div className="py-1">
-        <UserCard
-          user={user}
-          showImg
-          showName
-          imageHeight="10"
-          imageWidth="10"
-        />
+        <UserCard user={user} showImg showName imageHeight="10" imageWidth="10" />
       </div>
       <input
         type="text"
@@ -48,9 +42,7 @@ const PinForm = ({
       />
       {/* <div className="flex flex-col"> */}
       <div>
-        <p className="mb-2 text-gray-700  font-semibold  py-2 ">
-          Choose Pin Category
-        </p>
+        <p className="mb-2 text-gray-700  font-semibold  py-2 ">Choose Pin Category</p>
         <select
           onChange={(e) => setCategory(e.target.value)}
           className="outline-none w-4/5 text-gray-700 text-base   border-b-2 border-gray-200  rounded-md cursor-pointer"

@@ -1,35 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getAllPins, searchPins } from '../Utils/APIs/pinsAPI';
-import MasonryLayout from '../components/masonryLayout';
+import React from 'react';
+import MasonryLayout from '../container/masonryLayout';
 import Spinner from '../components/spinner';
+import { useContext } from 'react';
+import { PinContext } from '../context/pinContext';
 
 const Feed = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [pins, setPins] = useState(null);
-  const { categoryId } = useParams();
-
-  useEffect(() => {
-    if (categoryId) {
-      searchPins(categoryId).then((data) => {
-        setPins(data);
-        setIsLoading(false);
-      });
-    } else {
-      getAllPins().then((data) => {
-        setPins(data);
-
-        setIsLoading(false);
-      });
-    }
-  }, [categoryId]);
-
+  const {
+    pins: { data, error, isLoading },
+  } = useContext(PinContext);
   return (
     <Spinner isLoading={isLoading} message="We are adding new ideas to your feed!">
-      {pins?.length ? (
-        <MasonryLayout pins={pins} />
+      {error ? (
+        <span className="m-auto flex justify-center items-center ">{error}</span>
+      ) : data.length ? (
+        <MasonryLayout pins={data} />
       ) : (
-        <div className="w-full h-full flex justify-center items-center ">No pins available!</div>
+        <div className="m-auto flex justify-center items-center ">No pins available!</div>
       )}
     </Spinner>
   );

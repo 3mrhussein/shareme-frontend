@@ -27,6 +27,16 @@ export function searchPins(searchTerm) {
   }`;
   return client.fetch(query);
 }
+export const fetchSaveList = async (pinID) => {
+  //query to filter pins using the searchTerm
+  const query = `*[_type == "pin" && _id == "${pinID}"]{
+    save[] {
+      _key,
+    userId,
+    },
+  }`;
+  return client.fetch(query);
+};
 
 export function getAllPins() {
   const query = `*[_type == 'pin'] | order(_createdAt desc) {
@@ -35,6 +45,7 @@ export function getAllPins() {
         url
       }
     },
+    category,
     _id,
     destination,
     postedBy -> {
@@ -43,7 +54,7 @@ export function getAllPins() {
       image
     },
     save[] {
-      _key,
+      userId,
       postedBy -> {
         _id,
         userName,
@@ -53,26 +64,6 @@ export function getAllPins() {
   }`;
   return client.fetch(query);
 }
-export function savePinByCurrentUser(id, userId) {
-  return client
-    .patch(id)
-    .setIfMissing({ save: [] })
-    .insert('after', 'save[-1]', [
-      {
-        _key: uuidv4(),
-        userId: userId,
-        postedBy: {
-          _type: 'postedBy',
-          _ref: userId,
-        },
-      },
-    ])
-    .commit();
-}
-
-export function deletePinById(id) {
-  return client.delete(id).then(window.location.reload());
-}
 
 export function uploadPinImage(imageFile) {
   return client.assets.upload('image', imageFile, {
@@ -81,9 +72,6 @@ export function uploadPinImage(imageFile) {
   });
 }
 
-export function postPin(doc) {
-  return client.create(doc);
-}
 //fetch all data from pin collections that have _id == pinId
 export const pinDetailQuery = (pinId) => {
   const query = `*[_type == "pin" && _id == '${pinId}']{
@@ -226,4 +214,36 @@ export function getSavedPins(userId) {
 
 export function getUserCreatedPins(userId) {
   return client.fetch(userCreatedPinsQuery(userId));
+}
+
+export function savePinByCurrentUser(id, userId) {
+  return client
+    .patch(id)
+    .setIfMissing({ save: [] })
+    .insert('after', 'save[-1]', [
+      {
+        _key: uuidv4(),
+        userId: userId,
+        postedBy: {
+          _type: 'postedBy',
+          _ref: userId,
+        },
+      },
+    ])
+    .commit();
+}
+
+export const deleteUserFromSaveList = (pinId, key) => {
+  client
+    .patch(pinId)
+    .unset([`save[_key=="${key}"]`])
+    .commit();
+};
+
+export function deletePinById(id) {
+  return client.delete(id);
+}
+
+export function postPin(doc) {
+  return client.create(doc);
 }

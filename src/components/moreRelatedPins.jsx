@@ -1,14 +1,12 @@
 import React from 'react';
-import MasonryLayout from './masonryLayout';
+import MasonryLayout from '../container/masonryLayout';
 import Spinner from './spinner';
 
 const MoreRelatedPins = ({ relatedPins }) => {
   if (relatedPins?.length > 0)
     return (
       <>
-        <h2 className="text-center font-bold text-2xl mt-8 mb-4">
-          More like this
-        </h2>
+        <h2 className="text-center font-bold text-2xl mt-8 mb-4">More like this</h2>
         <MasonryLayout pins={relatedPins} />
       </>
     );
