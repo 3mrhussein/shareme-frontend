@@ -5,7 +5,6 @@ import Feed from '../pages/feed';
 import CreatePin from '../pages/createPin';
 import Navbar from '../components/navbar';
 import { SearchContextProvider } from '../context/searchContext';
-import { PinContextProvider } from '../context/pinContext';
 import Category from '../pages/category';
 const PinsRoutes = () => {
   return (
