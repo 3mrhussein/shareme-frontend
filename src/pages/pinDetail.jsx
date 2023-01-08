@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Spinner from '../components/spinner';
 import { UserContext } from '../context/userContext';
 import { useParams } from 'react-router-dom';
-import { fetchPinDetails, fetchPinsWithSameCategory, postPinComment } from '../APIs/pinsAPI';
+import { fetchPinDetails, postPinComment } from '../APIs/pinsAPI';
 import { urlFor } from '../APIs/client';
 import PinDownloadIcon from '../components/pinDownloadIcon';
 import UserCard from '../components/userCard';
@@ -11,11 +11,16 @@ import MoreRelatedPins from '../components/moreRelatedPins';
 
 const PinDetail = () => {
   const { user } = useContext(UserContext);
-  const [pins, setPins] = useState(null);
   const [pinDetail, setPinDetail] = useState(null);
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
   const { pinId } = useParams();
+
+  useEffect(() => {
+    fetchPinDetails(pinId).then((data) => {
+      setPinDetail(data[0]);
+    });
+  }, [pinId]);
 
   const addNewComment = () => {
     setAddingComment(true);
@@ -27,16 +32,11 @@ const PinDetail = () => {
       });
     });
   };
-  useEffect(() => {
-    fetchPinDetails(pinId).then((data) => {
-      setPinDetail(data[0]);
-      if (data[0]) fetchPinsWithSameCategory(data[0]).then((res) => setPins(res));
-    });
-  }, [pinId]);
+
   return (
     <Spinner isLoading={!pinDetail} message="Loading Pin..">
       <div
-        className="flex xl:flex-row flex-col m-auto bg-white"
+        className="flex xl:flex-row flex-col mx-auto px-2 md:px5 bg-white min-h-620"
         style={{ maxWidth: '1300px', borderRadius: '32px' }}
       >
         <div className="flex justify-center items-center md:items-start">
@@ -47,15 +47,10 @@ const PinDetail = () => {
             style={{ maxHeight: '70vh' }}
           />
         </div>
-        <div className="flex flex-1 flex-col lg:pl-6">
-          <div className="flex items-center justify-between p-5 flex-1 w-full xl:min-w-620">
-            <PinDownloadIcon
-              url={pinDetail?.image?.asset?.url}
-              className={`bg-white w-9 h-9 rounded-full flex items-center justify-center text-2xl outline-none`}
-            />
+        <div className="flex flex-col lg:pl-6">
+          <div className="flex items-center justify-between p-5 xl:min-w-620">
             <a
-              className=" whitespace-nowrap   overflow-hidden text-gray-700   text-sm md:text-base"
-              style={{ maxWidth: '40vw' }}
+              className=" whitespace-nowrap   overflow-hidden text-gray-700   text-sm md:text-small"
               href={pinDetail?.destination}
               target="_blank"
               rel="noreferrer"
@@ -63,6 +58,10 @@ const PinDetail = () => {
             >
               {pinDetail?.destination}
             </a>
+            <PinDownloadIcon
+              url={pinDetail?.image?.asset?.url}
+              className={`bg-white w-9 h-9 rounded-full flex items-center justify-center text-2xl outline-none`}
+            />
           </div>
           <div>
             <h1 className="text-4xl font-bold break-words mt-1">{pinDetail?.title}</h1>
@@ -116,7 +115,7 @@ const PinDetail = () => {
           </div>
         </div>
       </div>
-      <MoreRelatedPins relatedPins={pins} />
+      <MoreRelatedPins pinId={pinDetail} />
     </Spinner>
   );
 };

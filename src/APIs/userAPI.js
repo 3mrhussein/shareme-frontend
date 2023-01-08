@@ -1,4 +1,5 @@
 import { client } from './client';
+
 export function createNewUserDoc(userDocument, callback) {
   client.createIfNotExists(userDocument).then(() => callback());
 }

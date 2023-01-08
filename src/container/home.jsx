@@ -21,7 +21,7 @@ const Home = () => {
         <SideBarContextProvider>
           <Sidebar />
         </SideBarContextProvider>
-        <div className="mt-12 md:mt-0 w-full min-h-full">
+        <div className="mt-12 md:mt-0 w-full min-h-screen flex flex-col ">
           <PinContextProvider>
             <Routes>
               <Route path="/user-profile/:userId" element={<UserProfile />} />

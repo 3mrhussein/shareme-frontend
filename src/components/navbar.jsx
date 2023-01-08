@@ -9,7 +9,7 @@ const NavBar = () => {
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   if (!user) return null;
   return (
-    <div className="flex gap-2 justify-between md:gap-5 w-full h-20 mt-5 pb-7">
+    <div className="flex px-2 md:px5 gap-2 justify-between md:gap-5 w-full h-20 mt-5 pb-7">
       <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none shadow-sm focus-within:shadow-md">
         <IoMdSearch fontSize={21} className=" ml-1" />
         <input

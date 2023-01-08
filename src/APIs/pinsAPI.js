@@ -149,16 +149,6 @@ export const pinDetailMorePinQuery = (pin) => {
   return query;
 };
 
-export function fetchPinDetails(id) {
-  const query = pinDetailQuery(id);
-  return client.fetch(query);
-}
-
-export function fetchPinsWithSameCategory(pin) {
-  const query = pinDetailMorePinQuery(pin);
-  return client.fetch(query);
-}
-
 export const userCreatedPinsQuery = (userId) => {
   const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
     image{
@@ -246,4 +236,14 @@ export function deletePinById(id) {
 
 export function postPin(doc) {
   return client.create(doc);
+}
+
+export function fetchPinDetails(id) {
+  const query = pinDetailQuery(id);
+  return client.fetch(query);
+}
+
+export function fetchPinsWithSameCategory(pin) {
+  const query = pinDetailMorePinQuery(pin);
+  return client.fetch(query);
 }

@@ -11,11 +11,11 @@ const Feed = () => {
   return (
     <Spinner isLoading={isLoading} message="We are adding new ideas to your feed!">
       {error ? (
-        <span className="m-auto flex justify-center items-center ">{error}</span>
+        <span className="m-auto flex-center">{error}</span>
       ) : data.length ? (
         <MasonryLayout pins={data} />
       ) : (
-        <div className="m-auto flex justify-center items-center ">No pins available!</div>
+        <div className="m-auto flex-center ">No pins available!</div>
       )}
     </Spinner>
   );

@@ -17,7 +17,7 @@ const breakPointsObj = {
 
 const MasonryLayout = ({ pins }) => {
   return (
-    <Masonry className=" flex" breakpointCols={breakPointsObj}>
+    <Masonry className="flex px-2 md:px5" breakpointCols={breakPointsObj}>
       {pins?.map((pin) => {
         return <Pin key={pin._id} pin={pin} />;
       })}
