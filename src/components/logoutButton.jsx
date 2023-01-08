@@ -21,7 +21,7 @@ const LogoutButton = () => {
   };
   return (
     <button
-      className="bg-white p-3 rounded-full flex flex-row gap-2 justify-center items-center cursor-pointer outline-none shadow-sm font-bold"
+      className="bg-white p-3 rounded-full flex flex-row gap-2 justify-center items-center cursor-pointer outline-none shadow-lg font-bold"
       onClick={handleSignout}
     >
       Sign Out

@@ -3,7 +3,6 @@ import { createNewUserDoc } from '../APIs/userAPI';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { UserContext } from '../context/userContext';
-import { urlFor } from '../APIs/client';
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);

@@ -1,47 +1,62 @@
 import React, { useContext } from 'react';
-import DesktopSidebar from '../components/desktopSidebar';
-import MobileSidebar from '../components/mobileSidebar';
 import { HiMenu } from 'react-icons/hi';
 import { SideBarContext } from '../context/sideBarContext';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png';
-import { UserContext } from '../context/userContext';
-import UserCard from '../components/userCard';
-import LogoutButton from '../components/logoutButton';
 
+import { NavLink } from 'react-router-dom';
+import { RiHomeFill } from 'react-icons/ri';
+
+import { categories } from '../APIs/data';
 const Sidebar = () => {
-  const { pathname } = useLocation();
-
-  const { user, userIsLoaded } = useContext(UserContext);
   const { displaySidebar, setDisplaySidebar } = useContext(SideBarContext);
+  const isNotActiveStyle =
+    'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-100 ease-in-out capitalize';
+  const isActiveStyle =
+    'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-100 ease-in-out capitalize';
 
   return (
-    <>
-      <DesktopSidebar />
-      <div className=" flex md:hidden flex-row">
-        {/* Show the burger icon only in small screens and make it hidden in medium and larger screens */}
+    displaySidebar && (
+      <div
+        className="fixed min-h-screen md:relative  bg-white pt-2 md:pt-16 flex flex-col md:min-h-full shadow-md z-50"
+        style={{ minWidth: '250px' }}
+      >
         <div
-          className={`bg-white translate-y-16 ease-in-out duration-500  fixed   z-40 -top-16  p-2 w-full flex flex-row  justify-between  items-center shadow-md `}
+          onClick={() => setDisplaySidebar(false)}
+          className="md:hidden pl-2  mb-6 w-190 items-center"
         >
           <HiMenu
             fontSize={40}
             className="cursor-pointer"
-            onClick={() => setDisplaySidebar(true)}
+            onClick={() => setDisplaySidebar((prevState) => !prevState)}
           />
-          <Link to="/">
-            <img src={logo} alt="logo" className="w-28" />
-          </Link>
-          {user &&
-            userIsLoaded &&
-            (pathname.split('/')[2] === user?._id ? (
-              <LogoutButton />
-            ) : (
-              <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
-            ))}
         </div>
-        {displaySidebar && <MobileSidebar display={setDisplaySidebar} />}
+        <div className="flex flex-col gap-2 md:gap-3">
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
+            onClick={() => setDisplaySidebar(false)}
+          >
+            <RiHomeFill />
+            Home
+          </NavLink>
+          <h3 className=" px-5 text-base">Discover Categories</h3>
+          {categories.slice(0, categories.length - 1).map((category) => (
+            <NavLink
+              to={`/category/${category.name}`}
+              className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
+              onClick={() => setDisplaySidebar(false)}
+              key={category.name}
+            >
+              <img
+                className="w-7 h-7 rounded-full shadow-sm "
+                alt={category.name}
+                src={category.image}
+              />
+              {category.name}
+            </NavLink>
+          ))}
+        </div>
       </div>
-    </>
+    )
   );
 };
 

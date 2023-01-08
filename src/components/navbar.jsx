@@ -1,38 +1,37 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { IoMdAdd, IoMdSearch } from 'react-icons/io';
+import { HiMenu } from 'react-icons/hi';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import LogoutButton from '../components/logoutButton';
+import { SideBarContext } from '../context/sideBarContext';
 import { UserContext } from '../context/userContext';
-import { SearchContext } from '../context/searchContext';
 import UserCard from './userCard';
-const NavBar = () => {
-  const { user } = useContext(UserContext);
-  const { searchTerm, setSearchTerm } = useContext(SearchContext);
-  if (!user) return null;
+const Navbar = () => {
+  const { user, userIsLoaded } = useContext(UserContext);
+  const { setDisplaySidebar } = useContext(SideBarContext);
+  const { pathname } = useLocation();
+
   return (
-    <div className="flex px-2 md:px5 gap-2 justify-between md:gap-5 w-full h-20 mt-5 pb-7">
-      <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none shadow-sm focus-within:shadow-md">
-        <IoMdSearch fontSize={21} className=" ml-1" />
-        <input
-          type="text"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search"
-          value={searchTerm}
-          className="pl-2 pb-1 w-full  bg-white outline-none"
-        />
-      </div>
-      <div className="flex gap-3">
-        <div className=" hidden md:block">
-          <UserCard showImg imageWidth="14" redirect user={user} />
-        </div>
-        <Link
-          to={'create-pin'}
-          className="bg-black text-white rounded-full w-12 h-12 md:w-14 flex justify-center items-center"
-        >
-          <IoMdAdd />
-        </Link>
-      </div>
+    <div
+      className={`fixed md:relative bg-white ease-in-out duration-500  z-40  p-2 w-full flex flex-row  justify-between  items-center shadow-sm `}
+    >
+      <HiMenu
+        fontSize={40}
+        className="cursor-pointer"
+        onClick={() => setDisplaySidebar((prevState) => !prevState)}
+      />
+      <Link to="/">
+        <img src={logo} alt="logo" className="w-28" />
+      </Link>
+      {user &&
+        userIsLoaded &&
+        (pathname.split('/')[2] === user?._id ? (
+          <LogoutButton />
+        ) : (
+          <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
+        ))}
     </div>
   );
 };
 
-export default NavBar;
+export default Navbar;

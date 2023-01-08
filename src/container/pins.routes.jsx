@@ -3,14 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import PinDetail from '../pages/pinDetail';
 import Feed from '../pages/feed';
 import CreatePin from '../pages/createPin';
-import Navbar from '../components/navbar';
 import { SearchContextProvider } from '../context/searchContext';
 import Category from '../pages/category';
+import Search from '../components/Search';
 const PinsRoutes = () => {
   return (
     <SearchContextProvider>
-      <Navbar />
-
+      <Search />
       <Routes>
         <Route path="/" element={<Feed />} />
         <Route path="/category/:categoryId" element={<Category />} />
