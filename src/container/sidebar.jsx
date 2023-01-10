@@ -16,8 +16,8 @@ const Sidebar = () => {
   return (
     displaySidebar && (
       <div
-        className="fixed min-h-screen md:relative  bg-white pt-2 md:pt-16 flex flex-col md:min-h-full shadow-md z-50"
-        style={{ minWidth: '250px' }}
+        className="fixed min-h-full md:relative  bg-white pt-2 md:pt-16 flex flex-col md:min-h-full shadow-md z-50"
+        style={{ minWidth: '350px' }}
       >
         <div className="md:hidden pl-2  mb-6 w-190 items-center">
           <HiMenu
