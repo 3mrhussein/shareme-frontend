@@ -65,13 +65,6 @@ export function getAllPins() {
   return client.fetch(query);
 }
 
-export function uploadPinImage(imageFile) {
-  return client.assets.upload('image', imageFile, {
-    contentType: imageFile.type,
-    filename: imageFile.name,
-  });
-}
-
 //fetch all data from pin collections that have _id == pinId
 export const pinDetailQuery = (pinId) => {
   const query = `*[_type == "pin" && _id == '${pinId}']{
@@ -246,4 +239,11 @@ export function fetchPinDetails(id) {
 export function fetchPinsWithSameCategory(pin) {
   const query = pinDetailMorePinQuery(pin);
   return client.fetch(query);
+}
+
+export function uploadPinImage(imageFile) {
+  return client.assets.upload('image', imageFile, {
+    contentType: imageFile.type,
+    filename: imageFile.name,
+  });
 }

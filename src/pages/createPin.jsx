@@ -6,19 +6,16 @@ import PinForm from '../components/pinForm';
 import ImagePickerPreview from '../components/imagePickerPreview';
 import { PinContext } from '../context/pinContext';
 const CreatePin = () => {
-  const [title, setTitle] = useState('');
-  const [about, setAbout] = useState('');
-  const [destination, setDestination] = useState('');
   const [fields, setFields] = useState(null);
-  const [category, setCategory] = useState(null);
   const [imageAsset, setImageAsset] = useState(null);
 
   const { user } = useContext(UserContext);
   const { dispatch } = useContext(PinContext);
   const navigate = useNavigate();
 
-  const savePin = () => {
-    if (title && about && destination && imageAsset?._id && category) {
+  const uploadPin = (e) => {
+    const { title, about, destination, category } = e.target;
+    if (title.value && about.value && destination.value && imageAsset?._id && category.value) {
       const doc = {
         _type: 'pin',
         title,
@@ -58,17 +55,7 @@ const CreatePin = () => {
       )}
       <div className="flex flex-col lg:flex-row justify-center items-center bg-white lg:p-5 p-3 h-full w-full">
         <ImagePickerPreview imageAsset={imageAsset} setImageAsset={setImageAsset} />
-        <PinForm
-          title={title}
-          setTitle={setTitle}
-          about={about}
-          setAbout={setAbout}
-          destination={destination}
-          setDestination={setDestination}
-          category={category}
-          setCategory={setCategory}
-          savePin={savePin}
-        />
+        <PinForm uploadPin={uploadPin} />
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ import { UserContext } from '../context/userContext';
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const handleCallbackResponse = (response) => {
+  const handleCallbackResponse = async (response) => {
     const { sub, name, picture } = jwt_decode(response.credential);
+
     const userDoc = {
       _id: sub,
       _type: 'user',

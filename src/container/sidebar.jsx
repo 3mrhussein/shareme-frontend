@@ -19,10 +19,7 @@ const Sidebar = () => {
         className="fixed min-h-screen md:relative  bg-white pt-2 md:pt-16 flex flex-col md:min-h-full shadow-md z-50"
         style={{ minWidth: '250px' }}
       >
-        <div
-          onClick={() => setDisplaySidebar(false)}
-          className="md:hidden pl-2  mb-6 w-190 items-center"
-        >
+        <div className="md:hidden pl-2  mb-6 w-190 items-center">
           <HiMenu
             fontSize={40}
             className="cursor-pointer"
@@ -33,7 +30,7 @@ const Sidebar = () => {
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
-            onClick={() => setDisplaySidebar(false)}
+            // onClick={() => setDisplaySidebar(false)}
           >
             <RiHomeFill />
             Home
@@ -43,7 +40,7 @@ const Sidebar = () => {
             <NavLink
               to={`/category/${category.name}`}
               className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
-              onClick={() => setDisplaySidebar(false)}
+              // onClick={() => setDisplaySidebar(false)}
               key={category.name}
             >
               <img

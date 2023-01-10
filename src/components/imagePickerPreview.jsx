@@ -4,6 +4,7 @@ import Spinner from './spinner';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useState } from 'react';
 import { uploadPinImage } from '../APIs/pinsAPI';
+import { resizeImage } from '../Utils/utils';
 const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
   const [loading, setLoading] = useState(false);
   const [wrongImageType, setWrongImageType] = useState(false);
@@ -14,14 +15,19 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
     if (pattern.test(type)) {
       setWrongImageType(false);
       setLoading(true);
-      uploadPinImage(e.target.files[0])
-        .then((document) => {
-          setImageAsset(document);
-          setLoading(false);
+
+      resizeImage(e.target.files[0])
+        .then((blob) => {
+          uploadPinImage(blob)
+            .then((document) => {
+              setImageAsset(document);
+              setLoading(false);
+            })
+            .catch((error) => {
+              alert('cannot upload image');
+            });
         })
-        .catch((error) => {
-          console.log('image upload Error', error);
-        });
+        .catch((error) => alert('Cannot resize Image'));
     } else {
       setWrongImageType(true);
     }
@@ -30,7 +36,7 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
     <div className=" bg-secondaryColor p-3 flex flex-0.7 h-full w-full">
       <div className="flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-370">
         <Spinner isLoading={loading}></Spinner>
-        {wrongImageType && <p className="text-red-500 text-md p-5">Invaild image type</p>}
+        {wrongImageType && <p className="text-red-500 text-md p-5">Invalid image type</p>}
         {!imageAsset ? (
           <label>
             <div className="flex flex-col items-center justify-center ">
