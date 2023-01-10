@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed md:relative bg-white ease-in-out duration-500  z-40  p-2 w-full flex flex-row  justify-between  items-center shadow-sm `}
+      className={`bg-white relative z-50  p-2 w-full flex flex-row  justify-between  items-center shadow-md `}
     >
       <HiMenu
         fontSize={40}

@@ -19,11 +19,11 @@ const Home = () => {
   return (
     user &&
     userIsLoaded && (
-      <div className="flex min-h-screen bg-gray-50 ">
+      <div className="flex h-screen overflow-hidden bg-gray-50 ">
         <Sidebar />
-        <div className="w-full min-h-screen flex flex-col ">
+        <div className="w-full max-h-screen">
           <Navbar />
-          <div className="mt-14 md:mt-0">
+          <div className=" overflow-scroll h-full bg-red-700">
             <PinContextProvider>
               <Routes>
                 <Route path="/user-profile/:userId" element={<UserProfile />} />

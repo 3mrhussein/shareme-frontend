@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { HiMenu } from 'react-icons/hi';
 import { SideBarContext } from '../context/sideBarContext';
 
 import { NavLink } from 'react-router-dom';
@@ -16,41 +15,39 @@ const Sidebar = () => {
   return (
     displaySidebar && (
       <div
-        className="fixed min-h-full md:relative  bg-white pt-2 md:pt-16 flex flex-col md:min-h-full shadow-md z-50"
-        style={{ minWidth: '350px' }}
+        className="fixed min-h-full animate-slide-in md:animate-none md:relative bg-green bg-green-400 z-10"
+        style={{ minWidth: '300px' }}
       >
-        <div className="md:hidden pl-2  mb-6 w-190 items-center">
-          <HiMenu
-            fontSize={40}
-            className="cursor-pointer"
-            onClick={() => setDisplaySidebar((prevState) => !prevState)}
-          />
-        </div>
-        <div className="flex flex-col gap-2 md:gap-3">
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
-            // onClick={() => setDisplaySidebar(false)}
-          >
-            <RiHomeFill />
-            Home
-          </NavLink>
-          <h3 className=" px-5 text-base">Discover Categories</h3>
-          {categories.slice(0, categories.length - 1).map((category) => (
+        <div
+          className="fixed pt-10 top-14 h-screen  bg-white pt-2 rounded-r-md  shadow-md flex flex-col"
+          style={{ minWidth: '300px' }}
+        >
+          <div className="flex flex-col gap-2 md:gap-3">
             <NavLink
-              to={`/category/${category.name}`}
+              to="/"
               className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
               // onClick={() => setDisplaySidebar(false)}
-              key={category.name}
             >
-              <img
-                className="w-7 h-7 rounded-full shadow-sm "
-                alt={category.name}
-                src={category.image}
-              />
-              {category.name}
+              <RiHomeFill />
+              Home
             </NavLink>
-          ))}
+            <h3 className=" px-5 text-base">Discover Categories</h3>
+            {categories.slice(0, categories.length - 1).map((category) => (
+              <NavLink
+                to={`/category/${category.name}`}
+                className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
+                // onClick={() => setDisplaySidebar(false)}
+                key={category.name}
+              >
+                <img
+                  className="w-7 h-7 rounded-full shadow-sm "
+                  alt={category.name}
+                  src={category.image}
+                />
+                {category.name}
+              </NavLink>
+            ))}
+          </div>
         </div>
       </div>
     )
