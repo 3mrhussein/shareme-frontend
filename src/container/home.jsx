@@ -7,7 +7,7 @@ import Sidebar from './sidebar';
 import { Routes, Route } from 'react-router-dom';
 import { PinContextProvider } from '../context/pinContext';
 
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 
 const Home = () => {
   const { user, userIsLoaded } = useContext(UserContext);
