@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../context/userContext';
 import UserProfile from '../pages/userProfile';
 import { useNavigate } from 'react-router-dom';
-import PinsRoutes from './pins.routes';
+import PinsRoutes from '../pages/routes';
 import Sidebar from './sidebar';
 import { Routes, Route } from 'react-router-dom';
 import { PinContextProvider } from '../context/pinContext';
@@ -19,11 +19,11 @@ const Home = () => {
   return (
     user &&
     userIsLoaded && (
-      <div className="flex h-screen overflow-hidden bg-gray-50 ">
+      <div className="flex h-screen bg-gray-50 ">
         <Sidebar />
-        <div className="w-full max-h-screen">
+        <div className="flex-center flex-col w-full max-h-screen">
           <Navbar />
-          <div className=" overflow-scroll h-full">
+          <div className="relative overflow-scroll bottom-0 right-0 left-0 md:left-auto grow w-full">
             <PinContextProvider>
               <Routes>
                 <Route path="/user-profile/:userId" element={<UserProfile />} />

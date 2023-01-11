@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 import { getSavedPins, getUserCreatedPins } from '../APIs/pinsAPI';
 import { getUserById } from '../APIs/userAPI';
@@ -13,13 +13,22 @@ function UserProfile() {
   const [pins, setPins] = useState(null);
   const [activeBtn, setActiveBtn] = useState('created');
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   const ActiveButtonStyles = `px-3 text-center shadow-lg bg-red-500 rounded-full w-22 text-white font-semibold outline-none`;
   const inActiveButtonStyles = `px-3 text-center items-center bg-white rounded-full w-20 font-semibold outline-none`;
 
   useEffect(() => {
-    getUserById(userId).then((data) => setUserProfile(data[0]));
-  }, [userId]);
+    getUserById(userId)
+      .then((data) => {
+        if (data.length === 0) {
+          navigate('/404', { replace: true });
+          return;
+        }
+        setUserProfile(data[0]);
+      })
+      .catch((err) => navigate('/404', { replace: true }));
+  }, [userId, navigate]);
 
   useEffect(() => {
     if (activeBtn === 'created') {

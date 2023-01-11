@@ -1,42 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MdDelete } from 'react-icons/md';
-import Spinner from './spinner';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { useState } from 'react';
-import { uploadPinImage } from '../APIs/pinsAPI';
 import { resizeImage } from '../Utils/utils';
-const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
-  const [loading, setLoading] = useState(false);
-  const [wrongImageType, setWrongImageType] = useState(false);
+import { CreatePinContext } from '../context/createPinContext';
+const ImagePickerPreview = () => {
+  const { setInputs, inputs } = useContext(CreatePinContext);
+  const [imageAsset, setImageAsset] = useState(null);
+  const [invalidType, setInvalidType] = useState(false);
 
-  const uploadImage = (e) => {
-    const { type } = e.target.files[0];
+  const handleImgChange = (e) => {
     const pattern = new RegExp('image/*');
-    if (pattern.test(type)) {
-      setWrongImageType(false);
-      setLoading(true);
-
+    if (pattern.test(e.target.files[0]?.type)) {
+      setInvalidType(false);
       resizeImage(e.target.files[0])
         .then((blob) => {
-          uploadPinImage(blob)
-            .then((document) => {
-              setImageAsset(document);
-              setLoading(false);
-            })
-            .catch((error) => {
-              alert('cannot upload image');
-            });
+          setImageAsset(URL.createObjectURL(blob));
+          setInputs({ ...inputs, img: blob });
         })
-        .catch((error) => alert('Cannot resize Image'));
+        .catch((e) => {
+          setInputs({ ...inputs, img: null });
+          setImageAsset(null);
+        });
     } else {
-      setWrongImageType(true);
+      setInvalidType(true);
     }
   };
   return (
     <div className=" bg-secondaryColor p-3 flex flex-0.7 h-full w-full">
       <div className="flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-370">
-        <Spinner isLoading={loading}></Spinner>
-        {wrongImageType && <p className="text-red-500 text-md p-5">Invalid image type</p>}
+        {invalidType && <p className="text-red-500 text-md p-5">Invalid image type</p>}
         {!imageAsset ? (
           <label>
             <div className="flex flex-col items-center justify-center ">
@@ -50,15 +43,11 @@ const ImagePickerPreview = ({ setImageAsset, imageAsset }) => {
                 Use high-quality JPG, SVG, PNG, GIF less than 20 MB
               </p>
             </div>
-            <input type="file" name="upload-img" onChange={uploadImage} className="w-0 h-0"></input>
+            <input type="file" name="imgFile" onChange={handleImgChange} className="w-0 h-0" />
           </label>
         ) : (
           <div className="relative h-full">
-            <img
-              src={imageAsset?.url}
-              alt="uploaded-pic"
-              className="h-full w-full object-contain"
-            />
+            <img src={imageAsset} alt="uploaded-pic" className="h-full w-full object-contain" />
             <button
               type="button"
               className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-2xl shadow-md  hover:text-2xl transition-all duration-500 ease-in-out"
