@@ -17,7 +17,6 @@ export const resizeImage = (file) => {
       canvas.height = img.height;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
-      // ctx.drawImage(img, 0, 0, width, height);
 
       canvas.toBlob(
         (blob) => {
