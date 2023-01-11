@@ -18,6 +18,10 @@ module.exports = {
     //   // => @media (min-width: 1536px) { ... }
     // },
     extend: {
+      zIndex: {
+        1000: 1000,
+      },
+
       margin: {
         320: '320px',
       },
@@ -74,6 +78,7 @@ module.exports = {
         secondaryColor: '#F0F0F0',
         blackOverlay: 'rgba(0, 0 ,0 ,0.7)',
       },
+
       keyframes: {
         'slide-in': {
           '0%': {

@@ -6,7 +6,7 @@ import { RiHomeFill } from 'react-icons/ri';
 
 import { categories } from '../APIs/data';
 const Sidebar = () => {
-  const { displaySidebar, setDisplaySidebar } = useContext(SideBarContext);
+  const { displaySidebar } = useContext(SideBarContext);
   const isNotActiveStyle =
     'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-100 ease-in-out capitalize';
   const isActiveStyle =
@@ -15,11 +15,11 @@ const Sidebar = () => {
   return (
     displaySidebar && (
       <div
-        className="fixed min-h-full animate-slide-in md:animate-none md:relative bg-green bg-green-400 z-10"
+        className="fixed min-h-full animate-slide-in md:animate-none md:relative bg-white z-10"
         style={{ minWidth: '300px' }}
       >
         <div
-          className="fixed pt-10 top-14 h-screen  bg-white pt-2 rounded-r-md  shadow-md flex flex-col"
+          className="fixed pt-10 top-14 h-screen  bg-white rounded-r-md  shadow-md flex flex-col"
           style={{ minWidth: '300px' }}
         >
           <div className="flex flex-col gap-2 md:gap-3">
