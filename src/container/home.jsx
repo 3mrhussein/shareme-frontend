@@ -23,7 +23,11 @@ const Home = () => {
         <Sidebar />
         <div className="flex-center flex-col w-full max-h-screen">
           <Navbar />
+<<<<<<< HEAD
           <div className="relative overflow-scroll bottom-0 right-0 left-0 md:left-auto grow w-full">
+=======
+          <div className=" overflow-scroll grow w-full">
+>>>>>>> d0ab76c2c5a701f754ea6e14f9bb6b09759f6d78
             <PinContextProvider>
               <Routes>
                 <Route path="/user-profile/:userId" element={<UserProfile />} />

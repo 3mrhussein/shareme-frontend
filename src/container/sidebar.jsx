@@ -15,7 +15,7 @@ const Sidebar = () => {
   return (
     displaySidebar && (
       <div
-        className="fixed  md:relative pt-10 md:pt-16 top-12 bottom-0 md:top-0 rounded-r-md  shadow-md flex flex-col overflow-scroll animate-slide-in md:animate-none bg-white z-10"
+        className="fixed  md:relative pt-10 md:pt-16 top-12 bottom-0 left-0 md:top-0 rounded-r-md  shadow-md flex flex-col overflow-scroll animate-slide-in md:animate-none bg-white z-10"
         style={{ minWidth: '300px' }}
       >
         <div className="flex flex-col gap-2 md:gap-3">

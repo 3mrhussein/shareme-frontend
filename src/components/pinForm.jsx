@@ -61,11 +61,19 @@ const PinForm = ({ user }) => {
           Please fill in all the fields.
         </p>
       )}
+<<<<<<< HEAD
       <input
         type="submit"
         className="bg-red-500 cursor-pointer m-auto text-white font-bold p-2 rounded-full w-28 outline-none"
         value={'Save'}
       />
+=======
+      <button
+        type="submit"
+        className="bg-red-500 cursor-pointer m-auto text-white font-bold p-2 rounded-full w-28 outline-none"
+        value={'Save'}
+      > Save </button>
+>>>>>>> d0ab76c2c5a701f754ea6e14f9bb6b09759f6d78
     </div>
   );
 };
