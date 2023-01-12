@@ -7,7 +7,7 @@ const CreatePin = () => {
   const { Publish, setMissing, inputs } = useContext(CreatePinContext);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+
     const { title, about, destination, img, category } = inputs;
     if (!title || !about || !destination || !category || !img) {
       setMissing(true);
