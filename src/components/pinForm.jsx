@@ -61,7 +61,7 @@ const PinForm = ({ user }) => {
           Please fill in all the fields.
         </p>
       )}
-      <input
+      <button
         type="submit"
         className="bg-red-500 cursor-pointer m-auto text-white font-bold p-2 rounded-full w-28 outline-none"
         value={'Save'}
