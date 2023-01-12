@@ -7,6 +7,7 @@ import { SearchContextProvider } from '../context/searchContext';
 import Category from './category';
 import Search from '../components/Search';
 import { CreatePinContextProvider } from '../context/createPinContext';
+
 import PageNotFound from './404';
 const PinsRoutes = () => {
   return (
