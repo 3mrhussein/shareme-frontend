@@ -3,11 +3,20 @@ import React, { useContext } from 'react';
 import PinForm from '../components/pinForm';
 import ImagePickerPreview from '../components/imagePickerPreview';
 import { CreatePinContext } from '../context/createPinContext';
+import { UserContext } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 const CreatePin = () => {
   const { Publish, setMissing, inputs } = useContext(CreatePinContext);
+  const { user } = useContext(UserContext);
 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!user) {
+      navigate('/login', { replace: true });
+      return;
+    }
     const { title, about, destination, img, category } = inputs;
     if (!title || !about || !destination || !category || !img) {
       setMissing(true);

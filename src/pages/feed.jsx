@@ -1,32 +1,26 @@
-import React, { useEffect } from 'react';
 import MasonryLayout from '../container/masonryLayout';
 import { useContext } from 'react';
 import { PinContext } from '../context/pinContext';
-import { LoadingContext } from '../context/loadingContext';
+import useLoading from '../hooks/useLoading';
 
 const Feed = () => {
-  const { setPageLoading } = useContext(LoadingContext);
   const {
     pins: { data, error, isLoading },
   } = useContext(PinContext);
-  useEffect(() => {
-    setPageLoading((prev) => ({
-      ...prev,
-      loading: isLoading,
-      loadingMsg: 'We are adding new ideas to your feed!',
-      bgOpacity: 1,
-    }));
-  }, [setPageLoading, isLoading]);
+  console.log(isLoading);
+  useLoading(isLoading, 'We are adding new ideas to your feed!', 1);
   return (
-    <>
-      {error ? (
-        <span className="m-auto flex-center">{error}</span>
-      ) : data.length ? (
-        <MasonryLayout pins={data} />
-      ) : (
-        <div className="m-auto flex-center ">No pins available!</div>
-      )}
-    </>
+    !isLoading && (
+      <>
+        {error ? (
+          <span className="min-h-400 flex-center text-center font-bold">{error}</span>
+        ) : data.length ? (
+          <MasonryLayout pins={data} />
+        ) : (
+          <div className="m-auto flex-center ">No pins available!</div>
+        )}
+      </>
+    )
   );
 };
 

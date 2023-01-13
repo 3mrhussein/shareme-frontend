@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import Spinner from '../components/spinner';
 import { UserContext } from '../context/userContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchPinDetails, postPinComment } from '../APIs/pinsAPI';
 import { urlFor } from '../APIs/client';
 import PinDownloadIcon from '../components/pinDownloadIcon';
@@ -15,6 +15,7 @@ const PinDetail = () => {
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
   const { pinId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPinDetails(pinId).then((data) => {
@@ -99,6 +100,10 @@ const PinDetail = () => {
               onKeyDown={(e) => {
                 if (e.keyCode === 13 && !e.shiftKey) {
                   e.preventDefault();
+                  if (!user) {
+                    navigate('/login', { replace: true });
+                    return;
+                  }
                   addNewComment();
                 }
               }}
@@ -107,6 +112,10 @@ const PinDetail = () => {
               className="bg-red-500 text-white self-center rounded-full px-6 mx-5 py-2 font-semibold text-base"
               type="button"
               onClick={() => {
+                if (!user) {
+                  navigate('/login', { replace: true });
+                  return;
+                }
                 comment && addNewComment();
               }}
             >

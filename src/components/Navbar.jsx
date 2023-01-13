@@ -12,8 +12,8 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div
-      className={`bg-white relative z-50  p-2 w-full flex flex-row  justify-between  items-center shadow-md `}
+    <nav
+      className={`bg-white fixed md:relative z-40 top-0 right-0 p-2 w-full flex flex-row justify-between items-center shadow-md `}
     >
       <HiMenu
         fontSize={40}
@@ -30,7 +30,7 @@ const Navbar = () => {
         ) : (
           <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
         ))}
-    </div>
+    </nav>
   );
 };
 

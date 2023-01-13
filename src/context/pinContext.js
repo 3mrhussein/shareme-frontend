@@ -22,17 +22,16 @@ function pinReducer(state, action) {
   }
 }
 export const PinContextProvider = ({ children }) => {
-  const [pins, dispatch] = useReducer(pinReducer, { data: [], error: null, isLoading: false });
+  const [pins, dispatch] = useReducer(pinReducer, { data: [], error: null, isLoading: true });
 
   useEffect(() => {
-    const fetchPins = async () => {
+    const fetchPins = () => {
       dispatch({ type: 'FETCH_PINS' });
-      try {
-        const data = await getAllPins();
-        dispatch({ type: 'FETCH_PIN_SUCCESS', data });
-      } catch (e) {
-        dispatch({ type: 'FETCH_PIN_FAILURE', error: 'error occurred while fetching data' });
-      }
+      getAllPins()
+        .then((data) => dispatch({ type: 'FETCH_PIN_SUCCESS', data }))
+        .catch((e) => {
+          dispatch({ type: 'FETCH_PIN_FAILURE', error: 'Error while fetching data..' });
+        });
     };
 
     fetchPins();
