@@ -7,7 +7,6 @@ const Feed = () => {
   const {
     pins: { data, error, isLoading },
   } = useContext(PinContext);
-  console.log(isLoading);
   useLoading(isLoading, 'We are adding new ideas to your feed!', 1);
   return (
     !isLoading && (
