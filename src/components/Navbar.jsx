@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import LogoutButton from '../components/logoutButton';
 import { SideBarContext } from '../context/sideBarContext';
 import { UserContext } from '../context/userContext';
 import UserCard from './userCard';
+import SignButton from './SignButton';
 const Navbar = () => {
-  const { user, userIsLoaded } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { setDisplaySidebar } = useContext(SideBarContext);
   const { pathname } = useLocation();
 
@@ -23,13 +23,12 @@ const Navbar = () => {
       <Link to="/">
         <img src={logo} alt="logo" className="w-28" />
       </Link>
-      {user &&
-        userIsLoaded &&
-        (pathname.split('/')[2] === user?._id ? (
-          <LogoutButton />
-        ) : (
-          <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
-        ))}
+
+      {pathname.split('/')[2] === user?._id ? (
+        <SignButton />
+      ) : (
+        <UserCard imageWidth={10} imageHeight={10} showImg redirect user={user} />
+      )}
     </nav>
   );
 };

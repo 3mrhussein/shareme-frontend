@@ -11,6 +11,7 @@ const CreatePin = () => {
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
+    alert('form submitted');
     e.preventDefault();
 
     if (!user) {

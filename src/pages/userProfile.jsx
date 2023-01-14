@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { UserContext } from '../context/userContext';
 import { getSavedPins, getUserCreatedPins } from '../APIs/pinsAPI';
 import { getUserById } from '../APIs/userAPI';
-import LogoutButton from '../components/logoutButton';
 import MasonryLayout from '../container/masonryLayout';
 import useLoading from '../hooks/useLoading';
 
 function UserProfile() {
-  const { user } = useContext(UserContext);
   const [userProfile, setUserProfile] = useState(null);
   const [pins, setPins] = useState(null);
   const [activeBtn, setActiveBtn] = useState('created');
@@ -55,11 +52,11 @@ function UserProfile() {
           />
           <h1 className=" font-bold text-3xl text-center mt-3">{userProfile?.userName} </h1>
         </div>
-        {userId === user?._id && (
+        {/* {userId === user?._id && (
           <div className=" hidden md:block absolute top-0 right-0 m-3">
             <LogoutButton />
           </div>
-        )}
+        )} */}
       </div>
       <div className="flex gap-2 justify-center items-center mb-7">
         <button
