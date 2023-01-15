@@ -16,6 +16,7 @@ const CreatePin = () => {
   };
 
   const handleSubmit = (e) => {
+    alert('form submitted');
     e.preventDefault();
 
     if (!user) {
