@@ -37,7 +37,7 @@ export const CreatePinContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [missing, setMissing] = useState(null);
-  const { setPageLoading, setLoadingMsg } = useContext(LoadingContext);
+  const { setPageLoading } = useContext(LoadingContext);
   const [inputs, setInputs] = useState({
     title: null,
     about: null,
@@ -46,8 +46,12 @@ export const CreatePinContextProvider = ({ children }) => {
     img: null,
   });
   const Publish = () => {
-    setLoadingMsg('Uploading...');
-    setPageLoading(true);
+    setPageLoading((prevState) => ({
+      ...prevState,
+      loading: true,
+      loadingMsg: 'Uploading...',
+      bgOpacity: 0.7,
+    }));
     uploadPinImage(inputs.img)
       .then((document) => {
         const doc = initlizePinDoc(
@@ -72,17 +76,17 @@ export const CreatePinContextProvider = ({ children }) => {
               category: null,
               img: null,
             });
-            setPageLoading(false);
+            setPageLoading((prevState) => ({ ...prevState, loading: false }));
             navigate('/');
           })
           .catch((e) => {
             alert('Cannot publish new Pin');
+            setPageLoading((prevState) => ({ ...prevState, loading: false }));
           });
       })
       .catch((err) => {
         alert(err);
-        setLoadingMsg('');
-        setPageLoading(false);
+
         alert('Failed to upload image', err);
       });
   };
