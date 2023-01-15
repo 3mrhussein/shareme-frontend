@@ -46,7 +46,7 @@ const CreatePin = () => {
         />
 
         <div className="py-1">
-          <UserCard user={user} showImg showName imageHeight="10" imageWidth="10" />
+          <UserCard user={user} showImg showName imageHeight="8" imageWidth="8" />
         </div>
 
         <input
