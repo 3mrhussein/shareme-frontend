@@ -45,7 +45,7 @@ export const CreatePinContextProvider = ({ children }) => {
     category: null,
     img: null,
   });
-  const Publish = async () => {
+  const Publish = () => {
     setLoadingMsg('Uploading...');
     setPageLoading(true);
     uploadPinImage(inputs.img)
@@ -80,6 +80,7 @@ export const CreatePinContextProvider = ({ children }) => {
           });
       })
       .catch((err) => {
+        alert(err);
         setLoadingMsg('');
         setPageLoading(false);
         alert('Failed to upload image', err);
