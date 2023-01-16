@@ -69,7 +69,14 @@ const PinDetail = () => {
             <p className="mt-2 text-base font-thin">{pinDetail?.about}</p>
           </div>
           <div className="mt-5 w-fit">
-            <UserCard showImg showName redirect user={pinDetail?.postedBy} />
+            <UserCard
+              imageWidth={8}
+              imageHeight={8}
+              showImg
+              showName
+              redirect
+              user={pinDetail?.postedBy}
+            />
           </div>
           <h2 className="mt-5  text-lg font-semibold">Comments</h2>
           <div className="max-h-370  overflow-y-auto">
